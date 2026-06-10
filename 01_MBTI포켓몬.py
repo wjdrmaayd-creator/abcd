@@ -1,38 +1,38 @@
 import streamlit as st
 
-st.title("MBTI & 포켓몬 선택")
+st.title("🎮 MBTI 포켓몬 추천")
 
-mbti_list = [
-    "INTJ", "INTP", "ENTJ", "ENTP",
-    "INFJ", "INFP", "ENFJ", "ENFP",
-    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
-    "ISTP", "ISFP", "ESTP", "ESFP"
-]
+pokemon_mbti = {
+    "INTJ": {
+        "name": "뮤츠",
+        "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png"
+    },
+    "INTP": {
+        "name": "후딘",
+        "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/065.png"
+    },
+    "ENTJ": {
+        "name": "리자몽",
+        "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png"
+    },
+    "ENFP": {
+        "name": "피카츄",
+        "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png"
+    }
+}
 
-pokemon_list = [
-    "피카츄", "리자몽", "이브이", "뮤츠",
-    "팬텀", "루기아", "꼬부기", "이상해씨"
-]
+mbti = st.selectbox(
+    "MBTI를 선택하세요",
+    list(pokemon_mbti.keys())
+)
 
-# 좌우 배치
-col1, col2 = st.columns(2)
+pokemon = pokemon_mbti[mbti]
+
+col1, col2 = st.columns([1, 2])
 
 with col1:
-    mbti = st.selectbox(
-        "MBTI 선택",
-        mbti_list
-    )
+    st.image(pokemon["image"], width=250)
 
 with col2:
-    pokemon = st.selectbox(
-        "포켓몬 선택",
-        pokemon_list
-    )
-
-st.divider()
-
-st.write(f"선택한 MBTI : **{mbti}**")
-st.write(f"선택한 포켓몬 : **{pokemon}**")
-
-if st.button("결과 보기"):
-    st.success(f"{mbti} 유형이 선택한 포켓몬은 {pokemon}입니다!")
+    st.subheader(f"추천 포켓몬: {pokemon['name']}")
+    st.write(f"{mbti} 유형에게 어울리는 포켓몬입니다.")
